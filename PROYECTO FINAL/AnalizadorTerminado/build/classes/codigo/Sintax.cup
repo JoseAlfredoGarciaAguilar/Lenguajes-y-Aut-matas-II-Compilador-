@@ -1,0 +1,41 @@
+package codigo;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal Linea, Comillas, Tipo_Dato, Dato_Entero, Dato_Double, Dato_Float, Dato_Char,
+    Cadena, If, Else, Break, Switch, Case, Do, While, Igual, Suma, Resta,
+    Multiplicacion, Division, Caracter_Especial, Exclamacion_Inicial, Exclamacion_Final,
+    Gato, Porcentaje, Y, Punto, Dos_Puntos, Punto_Y_Coma, Interrogacion_Inicial,
+    Interrogacion_Final, Arroba, Llave_Inicial, Llave_Final, Parentesis_Inicial,
+    Parentesis_Final, Main, Identificador, Numero, ERROR;
+non terminal INICIO, SENTENCIA, DECLARACION;
+
+start with INICIO;
+
+INICIO ::= 
+    Dato_Entero Main Parentesis_Inicial Parentesis_Final Llave_Inicial SENTENCIA Llave_Final |
+    Dato_Double Main Parentesis_Inicial Parentesis_Final Llave_Inicial SENTENCIA Llave_Final
+;
+SENTENCIA ::= 
+    SENTENCIA DECLARACION
+;
+DECLARACION ::= 
+    Dato_Entero Identificador Punto_Y_Coma |
+    Dato_Entero Identificador Numero Punto_Y_Coma |
+    Identificador Numero Multiplicacion Numero Punto_Y_Coma
+;
+//JOSÉ ALFREDO GARCÍA AGUILAR
+//LENGUAJES Y AUTÓMATAS II - 12-1PM
